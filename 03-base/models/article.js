@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const pagination = require('../utils/pagination')
+const moment=require('moment')
 const articleSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -30,7 +31,7 @@ const articleSchema = new mongoose.Schema({
         default:0
     }
 })
-const Article = mongoose.model('article', articleSchema)
+
 
 articleSchema.statics.findPaginationArticles = function (req,query) {
     const options = {
@@ -47,4 +48,5 @@ articleSchema.statics.findPaginationArticles = function (req,query) {
 articleSchema.virtual('createdTime').get(function(){
     return moment(this.createdAt).format('YYYY-MM-DD HH:mm:ss')
 })
+const Article = mongoose.model('article', articleSchema)
 module.exports = Article
